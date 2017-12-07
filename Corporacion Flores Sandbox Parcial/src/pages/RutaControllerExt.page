@@ -1,0 +1,56 @@
+<apex:page standardController="Ruta__c" extensions="RutaControllerExt">
+    <apex:form >
+    	<apex:pageBlock >
+    		<apex:pageBlockButtons >
+            	<apex:commandButton value="Guardar"/>
+                <apex:commandButton value="Cancelar" action="{!cancel}"/>
+            </apex:pageBlockButtons>
+            
+            <apex:pageBlockSection columns="2">
+            	<apex:inputText label="Vendedor de Ruta"/>
+                <apex:inputText label="Vendedor Alterno"/>
+                <apex:inputText label="Supervisor"/>
+                <apex:inputText label="Zona"/>
+                <apex:inputText label="Fecha de Inicio"/>
+                <apex:inputText label="Fecha de Fin"/>
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection columns="1" title="Clientes">
+            	<apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Identificación">
+                    	<apex:inputText value="{!filtroIdentificacion}"/>
+                    </apex:outputLabel>                	
+                    <apex:commandButton value="Buscar" action="{!buscarCliente}"/>                   
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockTable value="{!listClientesRuta}" var="item">
+                	<apex:column >
+                        <apex:commandLink >
+                            Eliminar
+                        </apex:commandLink>
+                    </apex:column>
+                    <apex:column headerValue="Nombre">
+                        <apex:inputText value="{!item.nombre}" />
+                    </apex:column>
+                    <apex:column headerValue="Zona">
+                        <apex:inputText value="{!item.zona}" />
+                    </apex:column>
+                    <apex:column headerValue="Frecuenca">
+                        <apex:inputText value="{!item.frecuencia}" />
+                    </apex:column>
+                    <apex:column headerValue="Fecha Última Visita">
+                        <apex:inputText value="{!item.fechaUltimaVisita}" />
+                    </apex:column>
+                    <apex:column headerValue="Límite de Crédito">
+                        <apex:inputText value="{!item.limiteCredito}" />
+                    </apex:column>
+                    <apex:column headerValue="Estado">
+                        <apex:inputText value="{!item.estado}" />
+                    </apex:column>
+                </apex:pageBlockTable>
+                
+            </apex:pageBlockSection>
+            
+        </apex:pageBlock>
+    </apex:form>    
+</apex:page>

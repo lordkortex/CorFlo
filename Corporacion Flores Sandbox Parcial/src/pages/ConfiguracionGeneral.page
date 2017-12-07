@@ -1,0 +1,67 @@
+<apex:page showHeader="true" standardStylesheets="false" sidebar="false" applyBodyTag="true">
+    <head>        
+        <apex:stylesheet value="{!URLFOR($Resource.MetroUI, '/build/css/metro.css')}"/>
+        <apex:stylesheet value="{!URLFOR($Resource.MetroUI, '/build/css/metro-icons.css')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.MetroUI, '/build/js/jquery.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.MetroUI, '/build/js/metro.js')}"/>        
+    </head>
+    <div class="grid">
+        <div class="row">            
+            <div class="cell"></div>
+            <div class="cell"><apex:image url="{!$Resource.CorFloLogo}" width="120" height="95"/></div>
+        </div>                      
+    </div>    
+    <!--<div><apex:image url="{!$Resource.CorFloLogo}" width="120" height="95"/></div>-->
+    <div>
+    <ul class="v-menu context">
+        <li><a href="#" class="dropdown-toggle"><span class="mif-my-location icon"></span>Información Demográfica</a>
+            <ul class="d-menu" data-role="dropdown">
+                <li><apex:outputLink value="{!URLFOR($Action.Ciudades__c.List, $ObjectType.Ciudades__c)}" styleClass="app-bar-element"><span class="mif-location-city icon"></span>{!$ObjectType.Ciudades__c.Label}</apex:outputLink></li>
+                <li><apex:outputLink value="{!URLFOR($Action.Departamentos__c.List, $ObjectType.Departamentos__c)}" styleClass="app-bar-element"><span class="mif-layers icon"></span>{!$ObjectType.Departamentos__c.Label}</apex:outputLink></li>
+                <li><apex:outputLink value="{!URLFOR($Action.Pais__c.List, $ObjectType.Pais__c)}" styleClass="app-bar-element"><span class="mif-flag icon"></span>{!$ObjectType.Pais__c.Label}</apex:outputLink></li>
+            </ul>
+        </li>  
+        <li><a href="#" class="dropdown-toggle"><span class="mif-user-plus icon"></span>Vendedores</a>
+            <ul class="d-menu" data-role="dropdown">
+                <li><apex:outputLink value="{!URLFOR($Action.Grupo_de_Vendedores__c.List, $ObjectType.Grupo_de_Vendedores__c)}" styleClass="app-bar-element"><span class="mif-users icon"></span>{!$ObjectType.Grupo_de_Vendedores__c.Label}</apex:outputLink></li>
+                <li><apex:outputLink value="{!URLFOR($Action.Vendedor_Asignaciones__c.List, $ObjectType.Vendedor_Asignaciones__c)}" styleClass="app-bar-element"><span class="mif-list-numbered icon"></span>{!$ObjectType.Vendedor_Asignaciones__c.Label}</apex:outputLink></li>
+                <li><apex:outputLink value="{!URLFOR($Action.Vendedor_Asignacion_Contador__c.List, $ObjectType.Vendedor_Asignacion_Contador__c)}" styleClass="app-bar-element"><span class="mif-checkmark icon"></span>{!$ObjectType.Vendedor_Asignacion_Contador__c.Label}</apex:outputLink></li>
+            </ul>
+        </li>
+        <li><a href="#" class="dropdown-toggle"><span class="mif-apps icon"></span>Cátalogos</a>
+            <ul class="d-menu" data-role="dropdown">
+                 <li><apex:outputLink value="{!URLFOR($Action.Profesion__c.List, $ObjectType.Profesion__c)}" styleClass="app-bar-element"><span class="mif-pencil icon"></span>{!$ObjectType.Profesion__c.Label}</apex:outputLink></li>
+                 <li><apex:outputLink value="{!URLFOR($Action.Ramo_Juridico__c.List, $ObjectType.Ramo_Juridico__c)}" styleClass="app-bar-element"><span class="mif-justice icon"></span>{!$ObjectType.Ramo_Juridico__c.Label}</apex:outputLink></li>
+                 <li><apex:outputLink value="{!URLFOR($Action.Tipo_de_Cliente__c.List, $ObjectType.Tipo_de_Cliente__c)}" styleClass="app-bar-element"><span class="mif-air icon"></span>{!$ObjectType.Tipo_de_Cliente__c.Label}</apex:outputLink></li>
+            </ul>
+        </li>
+        <li><a href="#" class="dropdown-toggle"><span class="mif-widgets icon"></span>Sucursales</a>
+            <ul class="d-menu" data-role="dropdown">
+                 <li><apex:outputLink value="{!URLFOR($Action.Sucursal__c.List, $ObjectType.Sucursal__c)}" styleClass="app-bar-element"><span class="mif-home icon"></span>{!$ObjectType.Sucursal__c.Label}</apex:outputLink></li>
+            </ul>
+        </li>
+        <li><a href="#" class="dropdown-toggle"><span class="mif-directions-bike icon"></span>Rutas</a>
+            <ul class="d-menu" data-role="dropdown">
+                 <li><apex:outputLink value="{!URLFOR($Action.Ruta__c.List, $ObjectType.Ruta__c)}" styleClass="app-bar-element"><span class="mif-automobile icon"></span>{!$ObjectType.Ruta__c.Label}</apex:outputLink></li>
+            </ul>
+        </li>
+        <li><a href="#" class="dropdown-toggle"><span class="mif-clipboard icon"></span>Encuestas</a>
+            <ul class="d-menu" data-role="dropdown">
+                 <li><apex:outputLink value="{!URLFOR($Action.Survey__c.List, $ObjectType.Survey__c)}" styleClass="app-bar-element"><span class="mif-list2 icon"></span>{!$ObjectType.Survey__c.Label}</apex:outputLink></li>
+                 <li><apex:outputLink value="{!URLFOR($Action.SurveyTaker__c.List, $ObjectType.SurveyTaker__c)}" styleClass="app-bar-element"><span class="mif-list-numbered icon"></span>{!$ObjectType.SurveyTaker__c.Label}</apex:outputLink></li>
+                 <li><apex:outputLink value="{!URLFOR($Action.SurveyQuestionResponse__c.List, $ObjectType.SurveyQuestionResponse__c)}" styleClass="app-bar-element"><span class="mif-info icon"></span>{!$ObjectType.SurveyQuestionResponse__c.Label}</apex:outputLink></li>
+            </ul>
+        </li>
+        <li><a href="#" class="dropdown-toggle"><span class="mif-history icon"></span>Históricos</a>
+            <ul class="d-menu" data-role="dropdown">
+                 <li><apex:outputLink value="{!URLFOR($Action.Historico_de_Autos__c.List, $ObjectType.Historico_de_Autos__c)}" styleClass="app-bar-element"><span class="mif-list2 icon"></span>{!$ObjectType.Historico_de_Autos__c.Label}</apex:outputLink></li>
+                 <li><apex:outputLink value="{!URLFOR($Action.Historico_de_repuestos__c.List, $ObjectType.Historico_de_repuestos__c)}" styleClass="app-bar-element"><span class="mif-list-numbered icon"></span>{!$ObjectType.Historico_de_repuestos__c.Label}</apex:outputLink></li>
+            </ul>
+        </li>        
+        <li><apex:outputLink value="{!URLFOR($Action.Cuenta_Clave__c.List, $ObjectType.Cuenta_Clave__c)}" styleClass="app-bar-element"><span class="mif-profile icon"></span>Cuentas Clave</apex:outputLink></li>        
+        <li><apex:outputLink value="{!URLFOR($Action.Idioma__c.List, $ObjectType.Idioma__c)}" styleClass="app-bar-element"><span class="mif-language icon"></span>{!$ObjectType.Idioma__c.Label}</apex:outputLink></li>
+        <li><apex:outputLink value="{!URLFOR($Action.Meta_de_asesor__c.List, $ObjectType.Meta_de_asesor__c)}" styleClass="app-bar-element"><span class="mif-list icon"></span>Metas de Asesor</apex:outputLink></li>                    
+    </ul>
+    </div>
+          
+</apex:page>

@@ -1,0 +1,4 @@
+<apex:page sidebar="false" showHeader="false" extensions="MapearRutaControllerExt" standardController="Ruta__c"
+           applyBodyTag="false" applyHtmlTag="false">
+
+</apex:page>

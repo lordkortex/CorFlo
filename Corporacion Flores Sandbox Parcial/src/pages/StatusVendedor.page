@@ -1,0 +1,20 @@
+<apex:page standardController="Salto_Turno_Oportunidad__c"  extensions="StatusVendedorController">
+
+	<apex:form id="formId" >
+	    <apex:pageBlock >
+	    	<apex:pageMessages id="msgGeneral"/>
+			    <apex:pageBlockButtons location="Top" rendered="{!mostrarDatos}" >
+			    	<apex:commandButton value="Activar" action="{!activar}"  rendered="{!!activo}"/> 
+			    	<apex:commandButton value="Desactivar" action="{!desactivar}" rendered="{!activo}"/> 	
+			    </apex:pageBlockButtons>
+	    	<apex:pageBlockSection rendered="{!mostrarDatos}" >
+	    	</apex:pageBlockSection>
+	    	<apex:pageBlockSection rendered="{!mostrarDatos}" >
+		    	<apex:image url="{!$Resource.traffic_red}" width="250" height="80" rendered="{!!activo}"/>
+		    	<apex:image url="{!$Resource.traffic_green}" width="250" height="80" rendered="{!activo}"/>
+			    <apex:inputField value="{!Salto_Turno_Oportunidad__c.Razon__c}"/><br/><br/>
+		    </apex:pageBlockSection>
+	    </apex:pageBlock>    
+	    
+	</apex:form>
+</apex:page>

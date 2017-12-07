@@ -1,0 +1,3 @@
+<apex:page standardController="Cotizacion__c" renderAs="PDF" sidebar="false" showHeader="false"
+           applyBodyTag="false" applyHtmlTag="false">
+</apex:page>

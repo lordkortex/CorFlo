@@ -1,0 +1,10 @@
+<apex:page standardController="Salto_Turno_Oportunidad__c" extensions="AsignacionVendedoresSaltoController" >
+    <apex:form >
+    <apex:pageBlock >
+    <apex:pageBlockButtons location="Top" >
+     <apex:commandButton value="Save" action="{!saverecord}"/> <br/><br/>
+    </apex:pageBlockButtons>
+        <apex:inputField value="{!Salto_Turno_Oportunidad__c.Razon__c}"/><br/><br/>
+    </apex:pageBlock>   
+    </apex:form>
+</apex:page>

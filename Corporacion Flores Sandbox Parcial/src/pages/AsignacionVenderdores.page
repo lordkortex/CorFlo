@@ -1,0 +1,170 @@
+<apex:page showHeader="true" sidebar="true" controller="AsignacionVenderdoresController">
+
+
+<apex:form id="formId">
+	
+	<apex:pageMessages />
+
+	<apex:pageBlock id="pgbMain">		
+							
+		<apex:pageMessages />
+
+
+		<apex:panelGrid columns="10">
+			
+			<apex:pageblockSection title="Seleccion" columns="12" html-width="100%" id="BlockComercioAfiliadoInput">
+					<apex:pageBlockSectionItem rendered="true">
+			                    <apex:outputLabel value="{!$ObjectType.Vendedor__c.fields.Sucursal__c.label}"/>
+			                    <apex:outputPanel id="PanelGerenciaLocal">
+			                    <apex:selectList value="{!sucursal}" multiselect="false" size="1" id="sucursal">
+			                                <apex:selectOption itemValue="" itemLabel="Todos"/> 
+			                                <apex:selectOptions value="{!sucursalList}"/>
+			                        </apex:selectList>
+			                    </apex:outputPanel>
+			                
+			        </apex:pageBlockSectionItem>
+
+
+			        <apex:pageBlockSectionItem rendered="true">
+			                    <apex:outputLabel value="{!$ObjectType.Vendedor_Asignaciones__c.fields.Vendedor__c.label}"/>
+			                    <apex:outputPanel id="PanelGerenciaLocal">
+			                    <apex:selectList value="{!vendedor}" multiselect="false" size="1" id="sucursal">
+			                                <apex:selectOption itemValue="" itemLabel="Todos"/> 
+			                                <apex:selectOptions value="{!vendedorList}"/>
+			                        </apex:selectList>
+			                    </apex:outputPanel>
+			                
+			        </apex:pageBlockSectionItem>
+
+
+			         <apex:pageBlockSectionItem rendered="true">
+			                    <apex:outputLabel value="Fecha"/>
+			                    <apex:outputPanel id="fechaPanel">
+			                    <apex:inputField value="{!vendedorObject.Fecha_Asignacion__c}" ></apex:inputField>
+			                    </apex:outputPanel>
+			                
+			        </apex:pageBlockSectionItem>
+
+
+			         <apex:pageBlockSectionItem rendered="true">
+			                    <apex:outputLabel value="Marcas"/>
+			                    <apex:outputPanel id="PanelMarcas">
+			                    <apex:selectList value="{!marca}" multiselect="false" size="1" id="sucursal">
+			                                <apex:selectOption itemValue="" itemLabel="Todos"/> 
+			                                <apex:selectOptions value="{!marcaList}"/>
+			                        </apex:selectList>
+			                    </apex:outputPanel>
+			                
+			        </apex:pageBlockSectionItem>
+
+			         <apex:pageBlockSectionItem rendered="true">
+			                    <apex:outputLabel value="Source"/>
+			                    <apex:outputPanel id="PanelSource">
+			                    <apex:selectList value="{!source}" multiselect="false" size="1" id="source">
+			                                <apex:selectOption itemValue="" itemLabel="Todos"/> 
+			                                <apex:selectOptions value="{!sourceList}"/>
+			                        </apex:selectList>
+			                    </apex:outputPanel>
+			                
+			        </apex:pageBlockSectionItem>
+
+			</apex:pageblockSection>
+
+			<apex:commandButton value="Buscar" action="{!buscar}" reRender="pgbMain" rendered="true" />
+
+		</apex:panelGrid>
+
+		<apex:panelGrid columns="5">
+
+		
+			<apex:commandButton value="Agregar Mantenimiento" action="{!agregarMantenimiento}" reRender="pgbMain" rendered="true" />
+			<apex:commandButton value="Editar Mantenimiento" action="{!editarMantenimiento}" reRender="pgbMain" rendered="{!AND(showPantalla,listMantenimientoOportunidad.size>0)}" disabled="{!!finalizada}"/>
+			<apex:commandButton value="Guardar Cambios Mantenimiento" action="{!guardarCambios}" reRender="pgbMain" rendered="{!AND(listMantenimientoOportunidad.size>0,edicion)}"  disabled="{!!finalizada}"/>
+			<apex:commandButton value="Eliminar Mantenimientos" action="{!eliminarMantenimiento}" reRender="pgbMain" rendered="{!AND(listMantenimientoOportunidad.size>0,edicion)}" disabled="{!!finalizada}"/>
+			<apex:commandButton value="Cancelar Edicion" action="{!cancelarEdicion}" reRender="pgbMain" rendered="{!AND(listMantenimientoOportunidad.size>0,edicion)}" disabled="{!!finalizada}"/>
+
+			<apex:commandButton value="Guardar Mantenimiento" action="{!saveHistorico}" reRender="pgbMain" rendered="{!insercion}" disabled="{!!finalizada}"/>
+			<apex:commandButton value="Cancelar" action="{!cancelHistorico}" reRender="pgbMain" rendered="{!insercion}" disabled="{!!finalizada}"/>
+      
+		</apex:panelGrid>
+
+       <apex:actionFunction name="restaurar" action="{!restarurarPagina}" reRender="pgbMain"/>  
+		
+		<apex:pageBlockTable value="{!listMantenimientoOportunidad}" var="p" id="productsTable1" rendered="{!showPantalla}"  rowClasses="odd,even" styleClass="tableClass" columns="7">
+                            <apex:column style="width: 20%" headerValue="Vendedor">
+	                               <apex:outputlink value="/{!p.vendedor.Vendedor__c}" target="_blank">{!p.vendedor.Vendedor__r.name}</apex:outputlink>
+	                        </apex:column>
+                             <apex:column style="width: 20%">
+                                 <apex:facet name="header">{!$ObjectType.Vendedor_Asignaciones__c.fields.Fecha_Asignacion__c.Label}</apex:facet>
+                                    <apex:outputText value="{0, date,MM/dd/yyyy}">
+                                      <apex:param value="{!p.vendedor.Fecha_Asignacion__c}"/>
+                                    </apex:outputText>
+                            </apex:column>
+                            <apex:column style="width: 20%">
+                                 <apex:facet name="header">{!$ObjectType.Vendedor_Asignaciones__c.fields.Activo__c.Label}</apex:facet>
+                                 <apex:outputField value="{!p.vendedor.Activo__c}">
+                                 </apex:outputField>
+                            </apex:column>
+                            <apex:column style="width: 20%">
+                                 <apex:facet name="header">Sucursal</apex:facet>
+                                 <apex:outputText value="{!p.vendedor.Vendedor__r.Sucursal__r.name}">
+                                 </apex:outputText>
+                            </apex:column>
+                            <apex:column style="width: 20%">
+                                 <apex:facet name="header">Marcas</apex:facet>
+                                 <apex:outputText value="{!p.vendedor.Vendedor__r.Marcas__c}">
+                                 </apex:outputText>
+                            </apex:column>
+                            <apex:column style="width: 20%">
+                                 <apex:facet name="header">Usuario</apex:facet>
+                                 <apex:outputText value="{!p.vendedor.Vendedor__r.Usuario__r.Name}">
+                                 </apex:outputText>
+                            </apex:column>
+                            <apex:column style="width: 20%">
+                                 <apex:facet name="header">Source</apex:facet>
+                                 <apex:outputText value="{!p.vendedor.Source__c}">
+                                 </apex:outputText>
+                            </apex:column>
+
+        </apex:pageBlockTable>	 
+
+        <apex:pageBlockTable value="{!listMantenimientoOportunidadEdit}" var="p" id="productsTable1Edit" rendered="{!edicion}"  rowClasses="odd,even" styleClass="tableClass">
+							<apex:column style="width: 25%">
+                                 <apex:facet name="header">Seleccionar</apex:facet>
+                                 <apex:inputCheckbox value="{!p.checked}" >
+                                 </apex:inputCheckbox>
+                            </apex:column>
+							<apex:column headerValue="Vendedor">
+	                               <apex:outputlink value="/{!p.vendedor.Vendedor__c}" target="_blank">{!p.vendedor.Vendedor__r.name}</apex:outputlink>
+	                        </apex:column>
+                            <apex:column >
+                                 <apex:facet name="header">{!$ObjectType.Vendedor_Asignaciones__c.fields.Fecha_Asignacion__c.Label}</apex:facet>
+                                 <apex:inputField value="{!p.vendedor.Fecha_Asignacion__c}" rendered="{!finalizada}">
+                                 </apex:inputField>
+                                  <apex:outputText value="{!p.vendedor.Fecha_Asignacion__c}" rendered="{!!finalizada}"/>
+                            </apex:column>
+                            <apex:column >
+                                 <apex:facet name="header">{!$ObjectType.Vendedor_Asignaciones__c.fields.Activo__c.Label}</apex:facet>
+                                 <apex:inputField value="{!p.vendedor.Activo__c}" rendered="{!finalizada}">
+                                 </apex:inputField>
+                                  <apex:outputField value="{!p.vendedor.Activo__c}" rendered="{!!finalizada}"/>
+                            </apex:column>
+                            <apex:column style="width: 20%">
+                                 <apex:facet name="header">Source</apex:facet>
+                                 <apex:inputField value="{!p.vendedor.Source__c}">
+                                 </apex:inputField>
+                            </apex:column>
+        </apex:pageBlockTable>	
+
+     
+      	<apex:pageBlockSection title="" columns="1" rendered="{!insercion}" id="productsTable1Insert">
+            	<apex:inputField label="{!$ObjectType.Vendedor_Asignaciones__c.fields.Fecha_Asignacion__c.Label}" value="{!newOppHistorico.Fecha_Asignacion__c}" rendered="{!finalizada}"/>
+                <apex:inputField label="{!$ObjectType.Vendedor_Asignaciones__c.fields.Activo__c.Label}" value="{!newOppHistorico.Activo__c}" rendered="{!finalizada}"/>
+                <apex:inputField label="{!$ObjectType.Vendedor_Asignaciones__c.fields.Vendedor__c.Label}" value="{!newOppHistorico.Vendedor__c}" rendered="{!finalizada}"/>
+        </apex:pageBlockSection>
+        
+		
+	</apex:pageBlock>		 
+
+</apex:form> 
+</apex:page>

@@ -1,0 +1,97 @@
+<apex:page standardController="Cotizacion__c" extensions="CotizacionRepuestoControllerExt">
+    <apex:form >
+    	<apex:pageBlock >
+    		<apex:pageBlockButtons >
+            	<apex:commandButton value="Guardar"/>
+                <apex:commandButton value="Cancelar" action="{!cancel}"/>
+            </apex:pageBlockButtons>
+            
+            <apex:pageBlockSection columns="2">
+            	<apex:pageBlockSection columns="2">
+                	<apex:inputText label="Número de identidad"/>
+                    <apex:commandButton value="Buscar"/>
+                    
+					<apex:outputText label="Nombre del cliente"/>
+                    <apex:commandButton value="360"/>
+                    
+                    <apex:outputText label="Dirección"/>
+                    <apex:outputPanel />
+                    
+                    <apex:outputText label="Teléfono"/>
+                    <apex:outputPanel />
+                    
+                    <apex:outputText label="Límite de crédito"/>
+                    <apex:outputPanel />
+                    
+                    <apex:outputText label="VIN"/>
+                    <apex:outputPanel />
+                    
+                </apex:pageBlockSection>
+                
+                <apex:pageBlockSection columns="1">
+                	<apex:outputText label="Vendedor"/>
+                    <apex:outputText label="Sucursal"/>
+                    <apex:inputText label="Forma de Pago"/>
+                    <apex:inputText label="Estado de Cotización"/>
+                    <apex:inputText label="Descuento de Cotización"/>
+                </apex:pageBlockSection>
+                
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection columns="1" collapsible="true" title="Partes:">
+            	<apex:pageBlockSectionItem >
+                    <apex:outputLabel value="# Parte">
+                    	<apex:inputText />
+                    </apex:outputLabel>                	
+                    <apex:commandButton value="Buscar"/>                   
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockTable value="{!listPartes}" var="item">
+                	<apex:column headerValue="">
+                        <apex:commandLink >
+                            Eliminar
+                        </apex:commandLink>
+                    </apex:column>
+                    <apex:column headerValue="# Item">
+                        <apex:inputText value="{!item.numItem}" />
+                    </apex:column>
+                    <apex:column headerValue="# Parte">
+                        <apex:inputText value="{!item.numParte}" />
+                    </apex:column>
+                    <apex:column headerValue="Descripción">
+                        <apex:inputText value="{!item.descripcion}" />
+                    </apex:column>
+                    <apex:column headerValue="Unidad">
+                        <apex:inputText value="{!item.unidad}" />
+                    </apex:column>
+                    <apex:column headerValue="Cantidad">
+                        <apex:inputText value="{!item.cantidad}" />
+                    </apex:column>
+                    <apex:column headerValue="Disponibilidad">
+                        <apex:inputText value="{!item.disponibilidad}" />
+                    </apex:column>
+                    <apex:column headerValue="Descuento">
+                        <apex:inputText value="{!item.descuento}" />
+                    </apex:column>
+                    <apex:column headerValue="Precio Unitario">
+                        <apex:inputText value="{!item.precioUnitario}" />
+                    </apex:column>
+                    <apex:column headerValue="Precio Total">
+                        <apex:inputText value="{!item.precioTotal}" />
+                    </apex:column>
+                    <apex:column headerValue="Estado">
+                        <apex:inputText value="{!item.Estado}" />
+                    </apex:column>
+                </apex:pageBlockTable>
+            </apex:pageBlockSection>
+            
+            <apex:pageBlockSection columns="2">
+                <apex:outputText label="SubTotal"/>
+				<apex:outputText label="Impuesto"/>
+                <apex:outputText label="Descuento"/>
+                <apex:outputText label="Total"/>
+            </apex:pageBlockSection>
+            
+    	</apex:pageBlock>
+    </apex:form>
+</apex:page>
